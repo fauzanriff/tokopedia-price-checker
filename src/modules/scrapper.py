@@ -2,13 +2,13 @@ import requests
 from bs4 import BeautifulSoup
 import smtplib
 
-URL = 'INSERT_URL_YANG_MAU_DISCRAPPING'
+URL = 'https://www.tokopedia.com/istorebdg/macbook-air-m2-chip-2022-13-inch-8gb-512gb-garansi-resmi-ibox-inter-starlight-8c87'
 
 headers = {"User-Agent": 'SEARCH_GOOGLE_USER-AGENT_MY_COMPUTER'} 
 #contoh user-agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36 OPR/62.0.3331.116
 
-def check_price():
-    page = requests.get(URL, headers=headers)
+def check_price(source):
+    page = requests.get(source, headers=headers)
 
     soup = BeautifulSoup(page.content, 'html.parser') 
     #fungsi html.parser berguna untuk mempermudah kita untuk membaca code
@@ -16,15 +16,15 @@ def check_price():
     title = soup.h1.get_text() 
     #kita harus inspect element dan klik bagian judul nya, jadi tiap e-commerce yang digunakan bisa berbeda-beda
 
-    price = float(soup.find("span", itemprop="price").get_text())
+    price = float(soup.find_all("meta", property="product:price:amount")[0]['content'])
     #inspect element dan klik bagian harganya
 
     print(title.strip())
     print(price)
     
     #Jika barang dibawah 300k maka akan mengirim email menggunakan method send_mail()
-    if(price < 300000):
-        send_mail()
+    # if(price < 300000):
+    #     send_mail()
     
 def send_mail():
     server = smtplib.SMTP('smtp.gmail.com', 587) #587 adalah port
@@ -51,6 +51,3 @@ def send_mail():
     
     print("Email sudah terkirim")
     server.quit()
-
-
-check_price()
