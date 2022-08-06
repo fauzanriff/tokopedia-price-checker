@@ -17,6 +17,13 @@ URLs = [
 `
 python3 src/main.py
 `
+3. Example output
+```
+MacBook Air M2 Chip 2022 13 inch 8GB / 256GB Garansi Resmi iBox - Inter, Silver
+19589000.0
+MacBook Air M2 Chip 2022 13 inch 8GB / 512GB Garansi Resmi iBox - Inter, Starlight
+24825000.0
+```
 # Simple Tokopedia Price Checker Using BeutifulSoup
 
 Library yang digunakan:
